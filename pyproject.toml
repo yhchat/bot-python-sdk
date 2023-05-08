@@ -14,3 +14,4 @@ classifiers = [
 ]
 
 [project.urls]
+"Homepage" = "https://github.com/yhchat/bot-python-sdk"
