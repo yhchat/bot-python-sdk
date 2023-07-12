@@ -75,3 +75,48 @@ class Openapi(object):
          }
         headers = {'Content-Type': 'application/json'}
         return requests.post(self.baseUrl + '/bot/edit?token=' + self.token,headers=headers, data=json.dumps(params))
+    
+    def SetBotBoard(self, recvId: str, recvType: str, contentType: str, content: str):
+        """
+        @description: 机器人看板设置接口
+        机器人看板类型contentType取值: text、markdown、html
+        """
+        params = {
+            "recvId": recvId, 
+            "recvType": recvType, 
+            "contentType": contentType, 
+            "content": content
+         }
+        headers = {'Content-Type': 'application/json'}
+        return requests.post(self.baseUrl + '/bot/board?token=' + self.token,headers=headers, data=json.dumps(params))
+    
+    def SetBotBoardAll(self, contentType: str, content: str):
+        """
+        @description: 机器人看板批量设置接口
+        机器人看板类型contentType取值: text、markdown、html
+        """
+        params = {
+            "contentType": contentType, 
+            "content": content
+         }
+        headers = {'Content-Type': 'application/json'}
+        return requests.post(self.baseUrl + '/bot/board-all?token=' + self.token,headers=headers, data=json.dumps(params))
+    
+    def DismissBotBoard(self, recvId: str, recvType: str):
+        """
+        @description: 机器人看板取消接口
+        """
+        params = {
+            "recvId": recvId, 
+            "recvType": recvType, 
+         }
+        headers = {'Content-Type': 'application/json'}
+        return requests.post(self.baseUrl + '/bot/board-dismiss?token=' + self.token,headers=headers, data=json.dumps(params))
+    
+    def DismissBotBoardAll(self):
+        """
+        @description: 机器人看板取消接口
+        """
+        params = {}
+        headers = {'Content-Type': 'application/json'}
+        return requests.post(self.baseUrl + '/bot/board-all-dismiss?token=' + self.token,headers=headers, data=json.dumps(params))

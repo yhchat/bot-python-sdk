@@ -18,19 +18,19 @@ class Subscription(object):
         eventType = request.get_json()['header']['eventType']
         event = request.get_json()["event"]
 
-        if eventType == 'message.receive.normal': # 普通消息事件  
+        if eventType == 'message.receive.normal' and self.onMessageNormalSubscriber != None: # 普通消息事件  
             self.onMessageNormalSubscriber(event)
-        elif eventType == 'message.receive.instruction': # 指令消息事件 
+        elif eventType == 'message.receive.instruction' and self.onMessageInstructionSubscriber != None: # 指令消息事件 
             self.onMessageInstructionSubscriber(event)
-        elif eventType == 'group.join': # 加入群组事件 
+        elif eventType == 'group.join' and self.onGroupJoinSubscriber != None: # 加入群组事件 
             self.onGroupJoinSubscriber(event)
-        elif eventType == 'group.leave': # 退出群组事件 
+        elif eventType == 'group.leave' and self.onGroupLeaveSubscriber != None: # 退出群组事件 
             self.onGroupLeaveSubscriber(event)
-        elif eventType == 'bot.followed': # 关注机器人事件 
+        elif eventType == 'bot.followed' and self.onBotFollowedSubscriber != None: # 关注机器人事件 
             self.onBotFollowedSubscriber(event)
-        elif eventType == 'bot.unfollowed': # 取消关注机器人事件  
+        elif eventType == 'bot.unfollowed' and self.onBotUnfollowedSubscriber != None: # 取消关注机器人事件  
             self.onBotUnfollowedSubscriber(event)
-        elif eventType == 'button.report.inline': # 消息下按钮点击回调事件 
+        elif eventType == 'button.report.inline' and self.onButtonReportInlineSubscriber != None: # 消息下按钮点击回调事件 
             self.onButtonReportInlineSubscriber(event)
 
     def onMessageNormal(self, func):
