@@ -1,7 +1,3 @@
-import os
-import sys
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
 from flask import Flask, request
 import json
 import requests
@@ -49,7 +45,7 @@ def onMessageNormalHander(event):
 def onMessageInstructionHandler(event):
    print("onMessageInstructionlSubscriber")
    print(event)
-   res = openapi.editMessage("5e47ce1a65024da2bfba6f17481b6bdd", event["sender"]["senderId"], event["sender"]["senderType"], "text", {"text": "机器人编辑消息"})
+   res = openapi.editMessage("xxx", event["sender"]["senderId"], event["sender"]["senderType"], "text", {"text": "机器人编辑消息"})
    print(res.content)
 
 @sub.onGroupJoin
@@ -76,15 +72,6 @@ def onBotUnfollowedHandler(event):
 def onButtonReportInlineHandler(event):
    print("onButtonReportInlineSubscriber")
    print(event)
-
-
-
-
-
-def send_message(params):
-   headers = {'Content-Type': 'application/json'}
-   r = requests.post('http://chat.jwznb.com:8888/open-apis/v1/bot/send?token=xxx',headers=headers, data=json.dumps(params))
-
 
 if __name__ == '__main__':
    app.run("0.0.0.0", 8857)
