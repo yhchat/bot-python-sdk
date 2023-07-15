@@ -12,19 +12,19 @@ class Openapi(object):
     def __init__(self, token: str) -> None:
         self.token = token
 
-    def sendMessage(self, recvId: str, recvType: str, content: map):
+    def sendMessage(self, recvId: str, recvType: str, content: dict):
         """
         单条，发送文本消息
         """
         return self.sendMessage(recvId, recvType, "text", content)
 
-    def sendMarkdownMessage(self, recvId: str, recvType: str, content: map):
+    def sendMarkdownMessage(self, recvId: str, recvType: str, content: dict):
         """
         单条，发送markdown消息
         """
         return self.sendMessage(recvId, recvType, "markdown", content)
     
-    def sendMessage(self, recvId: str, recvType: str, contentType: str, content: map):
+    def sendMessage(self, recvId: str, recvType: str, contentType: str, content: dict):
         """
         单条，发送单条消息
         """
@@ -37,19 +37,19 @@ class Openapi(object):
         headers = {'Content-Type': 'application/json'}
         return requests.post(self.baseUrl + '/bot/send?token=' + self.token,headers=headers, data=json.dumps(params))
 
-    def batchSendTextMessage(self, recvIds: list, recvType: str, content: map):
+    def batchSendTextMessage(self, recvIds: list, recvType: str, content: dict):
         """
         批量，发送文本消息
         """
         return self.batchSendMessage(recvIds, recvType, "text", content)
 
-    def batchSendMarkdownMessage(self, recvIds: list, recvType: str, content: map):
+    def batchSendMarkdownMessage(self, recvIds: list, recvType: str, content: dict):
         """
         批量，发送markdown消息
         """
         return self.batchSendMessage(recvIds, recvType, "markdown", content)
     
-    def batchSendMessage(self, recvIds: list, recvType: str, contentType: str, content: map):
+    def batchSendMessage(self, recvIds: list, recvType: str, contentType: str, content: dict):
         """
         批量，批量发送消息
         """
@@ -69,7 +69,7 @@ class Openapi(object):
         return resList
 
     
-    def editMessage(self, msgId: str, recvId: str, recvType: str, contentType: str, content: map):
+    def editMessage(self, msgId: str, recvId: str, recvType: str, contentType: str, content: dict):
         """
         单条，编辑单条消息
         """
