@@ -53,14 +53,21 @@ class Openapi(object):
         """
         批量，批量发送消息
         """
-        params = {
-            "recvIds": recvIds, 
-            "recvType": recvType, 
-            "contentType": contentType, 
-            "content": content
-         }
-        headers = {'Content-Type': 'application/json'}
-        return requests.post(self.baseUrl + '/bot/batch_send?token=' + self.token,headers=headers, data=json.dumps(params))
+        batchCount = 200
+        recvIdss =  [recvIds[i:i+batchCount] for i in range(0, len(recvIds), batchCount)]
+        resList = []
+        for l in recvIdss:
+            params = {
+                "recvIds": l, 
+                "recvType": recvType, 
+                "contentType": contentType, 
+                "content": content
+            }
+            headers = {'Content-Type': 'application/json'}
+            res = requests.post(self.baseUrl + '/bot/batch_send?token=' + self.token,headers=headers, data=json.dumps(params))
+            resList.append(res)
+        return resList
+
     
     def editMessage(self, msgId: str, recvId: str, recvType: str, contentType: str, content: map):
         """
