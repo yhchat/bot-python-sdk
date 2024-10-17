@@ -83,28 +83,33 @@ class Openapi(object):
         headers = {'Content-Type': 'application/json'}
         return requests.post(self.baseUrl + '/bot/edit?token=' + self.token,headers=headers, data=json.dumps(params))
     
-    def SetBotBoard(self, recvId: str, recvType: str, contentType: str, content: str):
+    def SetBotBoard(self, recvId: str, recvType: str, contentType: str, content: str, expireTime: int):
         """
         @description: 机器人看板设置接口
         机器人看板类型contentType取值: text、markdown、html
+        expireTime: 看板过期时间，11位时间戳。比如过期时间为10分钟，则expireTime为当前时间戳+600秒（int(time.time()) + 600）。
         """
         params = {
             "recvId": recvId, 
             "recvType": recvType, 
             "contentType": contentType, 
-            "content": content
+            "content": content, 
+            "expireTime": expireTime
          }
         headers = {'Content-Type': 'application/json'}
         return requests.post(self.baseUrl + '/bot/board?token=' + self.token,headers=headers, data=json.dumps(params))
     
-    def SetBotBoardAll(self, contentType: str, content: str):
+    def SetBotBoardAll(self, contentType: str, content: str, expireTime: int):
+
         """
         @description: 机器人看板批量设置接口
         机器人看板类型contentType取值: text、markdown、html
+        expireTime: 看板过期时间，11位时间戳。比如过期时间为10分钟，则expireTime为当前时间戳+600秒（int(time.time()) + 600）。
         """
         params = {
             "contentType": contentType, 
-            "content": content
+            "content": content, 
+            "expireTime": expireTime
          }
         headers = {'Content-Type': 'application/json'}
         return requests.post(self.baseUrl + '/bot/board-all?token=' + self.token,headers=headers, data=json.dumps(params))
