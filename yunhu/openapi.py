@@ -12,7 +12,7 @@ class Openapi(object):
     def __init__(self, token: str) -> None:
         self.token = token
 
-    def sendMessage(self, recvId: str, recvType: str, content: dict):
+    def sendTextMessage(self, recvId: str, recvType: str, content: dict):
         """
         单条，发送文本消息
         """
