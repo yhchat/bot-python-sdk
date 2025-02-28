@@ -9,6 +9,7 @@ class Subscription(object):
     onBotFollowedSubscriber = None
     onBotUnfollowedSubscriber = None
     onButtonReportInlineSubscriber = None
+    onBotShortcutMenuEventSubscriber = None
 
     def __init__(self) -> None:
         pass
@@ -32,6 +33,8 @@ class Subscription(object):
             self.onBotUnfollowedSubscriber(event)
         elif eventType == 'button.report.inline' and self.onButtonReportInlineSubscriber != None: # 消息下按钮点击回调事件 
             self.onButtonReportInlineSubscriber(event)
+        elif eventType == 'bot.shortcut.menu' and self.onBotShortcutMenuEventSubscriber != None: # 机器人快捷菜单按钮事件 
+            self.onBotShortcutMenuEventSubscriber(event)
 
     def onMessageNormal(self, func):
         self.onMessageNormalSubscriber = func
@@ -59,4 +62,8 @@ class Subscription(object):
 
     def onButtonReportInline(self, func):
         self.onButtonReportInlineSubscriber = func
+        return func
+
+    def onBotShortcutMenuEvent(self, func):
+        self.onBotShortcutMenuEventSubscriber = func
         return func
