@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
  
 setuptools.setup(
     name="yunhu", 
-    version="0.0.11", 
+    version="0.0.12",
     author="yunhu",  
     description="云湖官方Python SDK",
     author_email="support@jwzhd.com",
