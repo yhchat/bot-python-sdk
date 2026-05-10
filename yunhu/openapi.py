@@ -1,6 +1,7 @@
 
 import json
 import requests
+from .stream_writer import StreamWriter
 
 
 class Openapi(object):
@@ -48,7 +49,7 @@ class Openapi(object):
         批量，发送markdown消息
         """
         return self.batchSendMessage(recvIds, recvType, "markdown", content)
-    
+
     def batchSendMessage(self, recvIds: list, recvType: str, contentType: str, content: dict):
         """
         批量，批量发送消息
@@ -134,3 +135,19 @@ class Openapi(object):
         params = {}
         headers = {'Content-Type': 'application/json'}
         return requests.post(self.baseUrl + '/bot/board-all-dismiss?token=' + self.token,headers=headers, data=json.dumps(params))
+    
+    def createStreamWriter(self, recvId: str, recvType: str, contentType: str = "markdown") -> StreamWriter:
+        """
+        创建流式消息写入器
+        :param recvId: 接收者ID
+        :param recvType: 接收者类型
+        :param contentType: 内容类型，默认为markdown
+        :return: StreamWriter实例
+        """
+        return StreamWriter(
+            token=self.token,
+            recv_id=recvId,
+            recv_type=recvType,
+            content_type=contentType,
+            base_url=self.baseUrl
+        )
