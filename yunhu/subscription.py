@@ -10,6 +10,8 @@ class Subscription(object):
     onBotUnfollowedSubscriber = None
     onButtonReportInlineSubscriber = None
     onBotShortcutMenuEventSubscriber = None
+    onBotSettingSubscriber = None
+    onA2UIButtonReportSubscriber = None
 
     def __init__(self) -> None:
         pass
@@ -35,6 +37,10 @@ class Subscription(object):
             self.onButtonReportInlineSubscriber(event)
         elif eventType == 'bot.shortcut.menu' and self.onBotShortcutMenuEventSubscriber != None: # 机器人快捷菜单按钮事件 
             self.onBotShortcutMenuEventSubscriber(event)
+        elif eventType == 'bot.setting' and self.onBotSettingSubscriber != None: # 机器人设置事件
+            self.onBotSettingSubscriber(event)
+        elif eventType == 'a2ui.button.report' and self.onA2UIButtonReportSubscriber != None: # 机器人A2UI消息按钮事件
+            self.onA2UIButtonReportSubscriber(event)
 
     def onMessageNormal(self, func):
         self.onMessageNormalSubscriber = func
@@ -66,4 +72,12 @@ class Subscription(object):
 
     def onBotShortcutMenuEvent(self, func):
         self.onBotShortcutMenuEventSubscriber = func
+        return func
+
+    def onBotSetting(self, func):
+        self.onBotSettingSubscriber = func
+        return func
+
+    def onA2UIButtonReport(self, func):
+        self.onA2UIButtonReportSubscriber = func
         return func
